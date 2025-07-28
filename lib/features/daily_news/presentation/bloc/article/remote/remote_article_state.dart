@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-
 import 'package:equatable/equatable.dart';
 import 'package:my_news_app/features/daily_news/domain/entities/article.dart';
 
@@ -10,7 +9,6 @@ class RemoteArticleState extends Equatable {
   const RemoteArticleState({this.articles, this.exception});
 
   @override
-  // TODO: implement props
   List<Object?> get props => [articles!, exception!];
 }
 
