@@ -9,6 +9,6 @@ abstract class ArticleDao {
   @delete
   Future<void> deleteArticle(ArticleModel model);
 
-  @Query('SELECT * FROM articles')
-  Future<void> getArticle(ArticleModel model);
+  @Query('SELECT * FROM article')
+  Future<List<ArticleModel>> getArticle();
 }
