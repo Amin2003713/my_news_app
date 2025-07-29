@@ -1,6 +1,7 @@
 import 'package:my_news_app/core/resources/data_state.dart';
-import 'package:my_news_app/features/daily_news/domain/entities/article.dart';
 
-import '../../../../core/utils/repositories/base_iRepository.dart';
+import '../../data/models/article_model.dart';
 
-abstract class IArticleRepository extends BaseIRepository<Article> {}
+abstract class IArticleRepository {
+  Future<DataState<List<ArticleModel>>> getMany();
+}

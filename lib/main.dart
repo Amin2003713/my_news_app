@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:my_news_app/features/daily_news/presentation/bloc/article/remote/remote_article_bloc.dart';
+import 'package:my_news_app/features/daily_news/presentation/bloc/article/remote/remote_article_event.dart';
 import 'package:my_news_app/features/daily_news/presentation/pages/home/daily_news.dart';
 
+import 'configs/theme.dart';
 import 'core/dependency_injection_container.dart';
 
 void main() async {
@@ -14,10 +18,9 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner: true,
-      debugShowMaterialGrid: true,
-      home: DailyNews(),
+    return BlocProvider<RemoteArticleBloc>(
+      create: (context) => sl()..add(GetArticle()),
+      child: MaterialApp(theme: appTheme, home: const DailyNews()),
     );
   }
 }

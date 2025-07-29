@@ -5,6 +5,8 @@ import 'package:my_news_app/features/daily_news/data/repository/article_reposito
 import 'package:my_news_app/features/daily_news/domain/repository/article_repository.dart';
 import 'package:my_news_app/features/daily_news/presentation/bloc/article/remote/remote_article_bloc.dart';
 
+import '../features/daily_news/domain/use_cases/get_article.dart';
+
 final sl = GetIt.instance;
 
 Future<void> initializeDependencies() async {
@@ -12,6 +14,9 @@ Future<void> initializeDependencies() async {
 
   sl.registerSingleton<NewsApiService>(NewsApiService(sl()));
   sl.registerSingleton<IArticleRepository>(ArticleRepository(sl()));
+
+  // ✅ Register the missing use case
+  sl.registerSingleton<GetArticleUseCase>(GetArticleUseCase(sl()));
 
   sl.registerFactory<RemoteArticleBloc>(() => RemoteArticleBloc(sl()));
 }

@@ -44,16 +44,25 @@ class _NewsApiService implements NewsApiService {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<List<dynamic>>(_options);
+    final Response<dynamic> _result = await _dio.fetch(_options);
     late List<ArticleModel> _value;
+
     try {
-      _value = _result.data!
-          .map((dynamic i) => ArticleModel.fromJson(i as Map<String, dynamic>))
-          .toList();
+      final data = _result.data;
+
+      // Ensure it's a Map and contains 'articles' as a List
+      if (data is Map<String, dynamic> && data['articles'] is List) {
+        _value = (data['articles'] as List)
+            .map((item) => ArticleModel.fromJson(item as Map<String, dynamic>))
+            .toList();
+      } else {
+        throw Exception('Invalid response format: expected "articles" as List');
+      }
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;
     }
+
     final httpResponse = HttpResponse(_value, _result);
     return httpResponse;
   }
