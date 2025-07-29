@@ -10,6 +10,7 @@ import 'package:my_news_app/features/daily_news/domain/use_cases/remove_article.
 import 'package:my_news_app/features/daily_news/presentation/bloc/article/remote/remote_article_bloc.dart';
 
 import '../features/daily_news/domain/use_cases/get_article.dart';
+import '../features/daily_news/presentation/bloc/article/local/local_article_bloc.dart';
 
 final sl = GetIt.instance;
 
@@ -30,4 +31,7 @@ Future<void> initializeDependencies() async {
   sl.registerSingleton<RemoveArticleUseCase>(RemoveArticleUseCase(sl()));
 
   sl.registerFactory<RemoteArticleBloc>(() => RemoteArticleBloc(sl()));
+  sl.registerFactory<LocalArticleBloc>(
+    () => LocalArticleBloc(sl(), sl(), sl()),
+  );
 }
