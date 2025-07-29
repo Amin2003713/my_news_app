@@ -1,25 +1,31 @@
+import 'package:floor/floor.dart';
 import 'package:my_news_app/features/daily_news/domain/entities/article.dart';
 
+@Entity(tableName: 'articles', primaryKeys: ['id'])
 class ArticleModel extends Article {
   const ArticleModel({
-    int? id,
-    String? author,
-    String? title,
-    String? description,
-    String? url,
-    String? urlToImage,
-    String? publishAt,
-    String? content,
+    super.id,
+    super.author,
+    super.title,
+    super.description,
+    super.url,
+    super.urlToImage,
+    super.publishAt,
+    super.content,
   });
 
-  factory ArticleModel.fromJson(Map<String, dynamic> map) => ArticleModel(
-    author: map['author'] ?? '',
-    content: map['content'] ?? '',
-    description: map['description'] ?? '',
-    // id: map['id'] ?? '',
-    publishAt: map['publishAt'] ?? '',
-    title: map['title'] ?? '',
-    url: map['url'] ?? '',
-    urlToImage: map['urlToImage'] ?? '',
-  );
+  factory ArticleModel.fromJson(Map<String, dynamic> map) {
+    final result = ArticleModel(
+      author: map['author'] as String? ?? '',
+      content: map['content'] as String? ?? '',
+      description: map['description'] as String? ?? '',
+      publishAt: map['publishedAt'] as String? ?? '',
+      title: map['title'] as String? ?? '',
+      url: map['url'] as String? ?? '',
+      urlToImage: map['urlToImage'] as String? ?? '',
+      // id: map['id'] as String? ?? '', // Uncomment if you add an ID field
+    );
+
+    return result;
+  }
 }
